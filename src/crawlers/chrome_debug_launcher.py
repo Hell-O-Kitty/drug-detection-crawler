@@ -1,5 +1,5 @@
 import subprocess
-from config.settings import CHROME_PATH, USER_DATA_DIR, DEBUG_PORT
+from src.config.settings import CHROME_PATH, USER_DATA_DIR, DEBUG_PORT
 
 def run_chrome_debug():
     USER_DATA_DIR.mkdir(exist_ok=True)
@@ -12,12 +12,12 @@ def run_chrome_debug():
 
     try:
         process = subprocess.Popen(cmd)
-        print("[INFO] Chrome launched successfully.")
+        print("[INFO] 크롬 실행 성공.")
         print(f"[INFO] PID: {process.pid}")
     except FileNotFoundError:
-        print("[ERROR] Chrome executable not found.")
+        print("[ERROR] 크롬 실행 파일 찾을 수 없음.")
     except Exception as e:
-        print(f"[ERROR] Failed to launch Chrome: {e}")
+        print(f"[ERROR] 크롬 실행 실패: {e}")
 
 def main():
     run_chrome_debug()

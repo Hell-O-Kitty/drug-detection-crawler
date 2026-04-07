@@ -1,74 +1,11 @@
 import requests
 import json
 import os
-
-def save_articles(parent_file_name, save_folder_path, articles):
-    saved_files = []
-
-    os.makedirs(save_folder_path, exist_ok=True)
-    print(f"ready to save : {save_folder_path}")
-
-    for idx, article_html in enumerate(articles, start=1):
-        file_name = f"article_{parent_file_name}_{idx}.html"
-        file_path = os.path.join(save_folder_path, file_name)
-
-        with open(file_path, "w", encoding="utf-8") as f:
-            f.write(article_html)
-
-        saved_files.append(file_path)
-        print(f"saved {file_name} : {file_path}")
-
-def download_image(url, save_path):
-    try:
-        res = requests.get(url, timeout=10)
-        res.raise_for_status()
-
-        with open(save_path, "wb") as f:
-            f.write(res.content)
-
-        print(f"Saved: {save_path}")
-
-    except Exception as e:
-        print(f"Failed: {url} -> {e}")
-
-import json
-import os
-
-def save_to_json(data, path="result.json"):
-    # 기존 데이터 불러오기
-    if os.path.exists(path):
-        try:
-            with open(path, "r", encoding="utf-8") as f:
-                existing_data = json.load(f)
-        except json.JSONDecodeError:
-            existing_data = []
-    else:
-        existing_data = []
-
-    # 리스트 형태로 맞추기
-    if not isinstance(existing_data, list):
-        existing_data = [existing_data]
-
-    if isinstance(data, list):
-        existing_data.extend(data)
-    else:
-        existing_data.append(data)
-
-    # 다시 저장
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(existing_data, f, ensure_ascii=False, indent=2)
-
-    print(f"{len(existing_data)}개 데이터 저장 완료")
-
-import os
 import csv
-import json
 import base64
 import mimetypes
 from pathlib import Path
 from urllib.parse import urlparse
-
-import requests
 
 
 CSV_FIELDS = [
@@ -88,6 +25,55 @@ CSV_FIELDS = [
     "video_video_poster_url",
     "video_video_source_url",
 ]
+
+
+# -----------------------------
+# HTML 저장
+# -----------------------------
+def save_articles(parent_file_name, save_folder_path, articles):
+    saved_files = []
+
+    os.makedirs(save_folder_path, exist_ok=True)
+    print(f"ready to save : {save_folder_path}")
+
+    for idx, article_html in enumerate(articles, start=1):
+        file_name = f"article_{parent_file_name}_{idx}.html"
+        file_path = os.path.join(save_folder_path, file_name)
+
+        with open(file_path, "w", encoding="utf-8") as f:
+            f.write(article_html)
+
+        saved_files.append(file_path)
+        print(f"saved {file_name} : {file_path}")
+
+    return saved_files
+
+
+# -----------------------------
+# JSON 저장
+# -----------------------------
+def save_to_json(data, path="result.json"):
+    if os.path.exists(path):
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                existing_data = json.load(f)
+        except json.JSONDecodeError:
+            existing_data = []
+    else:
+        existing_data = []
+
+    if not isinstance(existing_data, list):
+        existing_data = [existing_data]
+
+    if isinstance(data, list):
+        existing_data.extend(data)
+    else:
+        existing_data.append(data)
+
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(existing_data, f, ensure_ascii=False, indent=2)
+
+    print(f"{len(existing_data)}개 데이터 저장 완료")
 
 
 # -----------------------------
@@ -150,7 +136,7 @@ def get_extension_from_url_or_response(url: str, response: requests.Response | N
     return ".jpg"
 
 
-def download_image(url: str, save_path: str, timeout: int = 15) -> str | None:
+def download_file(url: str, save_path: str, timeout: int = 15) -> str | None:
     if not url:
         return None
 
@@ -185,14 +171,14 @@ def file_to_base64(file_path: str) -> str | None:
 
 def download_url_image_and_exchange_base64(num, url, field_name, save_dir="downloaded_images"):
     """
-    1. url 이미지를 로컬에 저장
+    1. url 파일을 로컬에 저장
     2. 저장된 파일을 base64 문자열로 변환
     3. (saved_path, base64_string) 반환
     """
     ensure_dir(save_dir)
 
     base_save_path = os.path.join(save_dir, f"{num}_{field_name}")
-    saved_path = download_image(url, base_save_path)
+    saved_path = download_file(url, base_save_path)
 
     if not saved_path:
         return None, None
@@ -209,7 +195,6 @@ def normalize_to_string(value):
         return ""
 
     if isinstance(value, list):
-        # 리스트는 | 로 이어붙여 저장
         return "|".join(map(str, value))
 
     if isinstance(value, dict):
@@ -221,30 +206,52 @@ def normalize_to_string(value):
 def normalize_json_item(item: dict) -> dict:
     """
     json 데이터를 csv 한 줄 구조로 맞춤
-    json에는 num이 없으므로 여기서는 제외하고 나중에 채움
+    - 평평한 구조 / parsed 중첩 구조 둘 다 지원
+    - CSV_FIELDS 칼럼만 채움
     """
+    parsed = item.get("parsed") if isinstance(item.get("parsed"), dict) else item
+    counts = parsed.get("counts") if isinstance(parsed.get("counts"), dict) else {}
+    video = parsed.get("video") if isinstance(parsed.get("video"), dict) else {}
+
     normalized = {
         "num": "",
-        "nickname": normalize_to_string(item.get("nickname")),
-        "user_id": normalize_to_string(item.get("user_id")),
-        "profile_image_url": normalize_to_string(item.get("profile_image_url")),
-        "date": normalize_to_string(item.get("date")),
-        "text": normalize_to_string(item.get("text")),
-        "counts_reply": normalize_to_string(item.get("counts_reply")),
-        "counts_retweet": normalize_to_string(item.get("counts_retweet")),
-        "counts_like": normalize_to_string(item.get("counts_like")),
-        "counts_view": normalize_to_string(item.get("counts_view")),
-        "image_urls": normalize_to_string(item.get("image_urls")),
-        "hashtags": normalize_to_string(item.get("hashtags")),
-        "video_video_blob_url": normalize_to_string(item.get("video_video_blob_url")),
-        "video_video_poster_url": normalize_to_string(item.get("video_video_poster_url")),
-        "video_video_source_url": normalize_to_string(item.get("video_video_source_url")),
+        "nickname": normalize_to_string(parsed.get("nickname")),
+        "user_id": normalize_to_string(parsed.get("user_id")),
+        "profile_image_url": normalize_to_string(parsed.get("profile_image_url")),
+        "date": normalize_to_string(parsed.get("date")),
+        "text": normalize_to_string(parsed.get("text")),
+        "counts_reply": normalize_to_string(counts.get("reply")),
+        "counts_retweet": normalize_to_string(counts.get("retweet")),
+        "counts_like": normalize_to_string(counts.get("like")),
+        "counts_view": normalize_to_string(counts.get("view")),
+        "image_urls": normalize_to_string(parsed.get("image_urls")),
+        "hashtags": normalize_to_string(parsed.get("hashtags")),
+        "video_video_blob_url": normalize_to_string(video.get("video_blob_url")),
+        "video_video_poster_url": normalize_to_string(video.get("video_poster_url")),
+        "video_video_source_url": normalize_to_string(video.get("video_source_url")),
     }
     return normalized
 
 
-def get_existing_date_set(rows: list[dict]) -> set[str]:
-    return {str(row.get("date", "")).strip() for row in rows if row.get("date")}
+def build_csv_duplicate_key(row: dict) -> str:
+    date = str(row.get("date", "")).strip()
+    user_id = str(row.get("user_id", "")).strip().lower()
+
+    if not date or not user_id:
+        return ""
+
+    return f"{date}|{user_id}"
+
+
+def get_existing_key_set(rows: list[dict]) -> set[str]:
+    result = set()
+
+    for row in rows:
+        key = build_csv_duplicate_key(row)
+        if key:
+            result.add(key)
+
+    return result
 
 
 def get_next_num(rows: list[dict]) -> int:
@@ -252,20 +259,19 @@ def get_next_num(rows: list[dict]) -> int:
     for row in rows:
         try:
             nums.append(int(row.get("num", 0)))
-        except:
+        except Exception:
             pass
     return max(nums, default=0) + 1
 
 
 def convert_url_fields_to_base64(row_num: int, row_data: dict, image_save_dir="downloaded_images") -> dict:
     """
-    URL 필드들 중 이미지 성격인 것만 다운로드 후 base64로 변환
-    profile_image_url, image_urls, video_video_poster_url 대상으로 처리
+    image_urls, video_video_poster_url 만 다운로드 후 base64 변환
+    profile_image_url 은 제외
     """
     converted = dict(row_data)
 
     image_like_fields = [
-        "profile_image_url",
         "image_urls",
         "video_video_poster_url",
     ]
@@ -275,7 +281,6 @@ def convert_url_fields_to_base64(row_num: int, row_data: dict, image_save_dir="d
         if not raw_value:
             continue
 
-        # image_urls는 여러 개일 수 있으니 | 기준 분리
         urls = [u.strip() for u in raw_value.split("|") if u.strip()]
         base64_list = []
 
@@ -301,10 +306,10 @@ def convert_url_fields_to_base64(row_num: int, row_data: dict, image_save_dir="d
 def save_json_to_csv(file_path, saved_file_name):
     """
     1. json 파일을 입력 받고 순회
-    2. csv의 date 열과 비교하여 중복 확인
+    2. csv의 date+user_id 기준으로 중복 확인
     3. 중복이 아니면 새 row 번호(num) 부여
-    4. 이미지 url들을 다운로드해서 {row}_{field명} 형식으로 저장
-    5. csv에는 해당 url 대신 base64 문자열 저장
+    4. image_urls / video_video_poster_url 만 다운로드 후 base64 저장
+    5. profile_image_url 은 원본 URL 문자열 유지
     """
     json_data = read_json_file(file_path)
 
@@ -312,7 +317,7 @@ def save_json_to_csv(file_path, saved_file_name):
         raise ValueError("JSON 파일은 리스트 형태여야 합니다.")
 
     existing_rows = read_existing_csv_rows(saved_file_name)
-    existing_dates = get_existing_date_set(existing_rows)
+    existing_keys = get_existing_key_set(existing_rows)
     next_num = get_next_num(existing_rows)
 
     added_count = 0
@@ -320,17 +325,15 @@ def save_json_to_csv(file_path, saved_file_name):
 
     for item in json_data:
         normalized = normalize_json_item(item)
-        current_date = normalized.get("date", "").strip()
+        current_key = build_csv_duplicate_key(normalized)
 
-        # date 기준 중복 체크
-        if current_date and current_date in existing_dates:
+        if current_key and current_key in existing_keys:
             skipped_count += 1
-            print(f"[중복 스킵] date={current_date}")
+            print(f"[중복 스킵] key={current_key}")
             continue
 
         normalized["num"] = str(next_num)
 
-        # URL -> base64 치환
         converted_row = convert_url_fields_to_base64(
             row_num=next_num,
             row_data=normalized,
@@ -339,10 +342,10 @@ def save_json_to_csv(file_path, saved_file_name):
 
         append_csv_row(saved_file_name, converted_row)
 
-        if current_date:
-            existing_dates.add(current_date)
+        if current_key:
+            existing_keys.add(current_key)
 
-        print(f"[추가 완료] num={next_num}, date={current_date}")
+        print(f"[추가 완료] num={next_num}, key={current_key}")
         next_num += 1
         added_count += 1
 

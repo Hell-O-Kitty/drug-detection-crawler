@@ -42,3 +42,16 @@ DEBUG_PORT = int(os.getenv("DEBUG_PORT", 9222))
 
 # 프로필 경로
 USER_DATA_DIR = Path.home() / "selenium_profile"
+
+# HTML 저장 위치
+HTML_SAVE_DIR = BASE_DIR/"data"/"raw"/"html"
+
+# 원본 JSON 저장 위치
+RAW_JSON_DIR = BASE_DIR / "data"
+RAW_JSON_PATH = RAW_JSON_DIR / "collected_elements.json"
+
+# 크롤링 단위 (HTML_TAG)
+HTML_TAG = os.getenv("HTML_TAG", "article")
+
+# 원본 소스 이름
+SOURCE_NAME = os.getenv("SOURCE_NAME", "twitter_feed")
