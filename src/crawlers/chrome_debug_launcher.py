@@ -1,13 +1,13 @@
 import subprocess
+from config.settings import CHROME_PATH, USER_DATA_DIR, DEBUG_PORT
 
 def run_chrome_debug():
-    chrome_path = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
-    user_data_dir = r"C:\selenium_profile"
+    USER_DATA_DIR.mkdir(exist_ok=True)
 
     cmd = [
-        chrome_path,
-        "--remote-debugging-port=9222",
-        f"--user-data-dir={user_data_dir}"
+        CHROME_PATH,
+        f"--remote-debugging-port={DEBUG_PORT}",
+        f"--user-data-dir={USER_DATA_DIR}"
     ]
 
     try:
@@ -19,6 +19,8 @@ def run_chrome_debug():
     except Exception as e:
         print(f"[ERROR] Failed to launch Chrome: {e}")
 
+def main():
+    run_chrome_debug()
 
 if __name__ == "__main__":
-    run_chrome_debug()
+    main()
