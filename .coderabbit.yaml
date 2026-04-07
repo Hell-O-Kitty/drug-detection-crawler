@@ -1,0 +1,44 @@
+language: "ko-KR"
+
+tone_instructions: >
+  역할: 현업 개발자
+  목표: 코드 품질 개선과 팀원 성장
+  피드백: 명확하고 구체적이게, 문제의 원인과 개선 방법을 반드시 제시
+  리뷰: 교육적이며, 관련 개념이나 공식 문서를 함께 추천
+  기타: 피반보다는 개선, 칭찬은 간단히
+
+reviews:
+  profile: chill
+  request_changes_workflow: false
+  high_level_summary: true
+  changed_files_summary: true
+  sequence_diagrams: true
+  assess_linked_issues: true
+  related_issues: false
+  related_prs: false
+  suggested_labels: false
+  auto_apply_labels: false
+  suggested_reviewers: false
+  auto_assign_reviewers: false
+  poem: true
+  # path_instructions:
+  auto_review:
+    enabled: false
+    auto_incremental_review: false
+  
+chat:
+  auto_reply: true
+
+knowledge_base:
+  web_search:
+    enabled: true
+  # code_guidelines:
+
+  learnings:
+    scope: local
+  
+  issues:
+    scope: local
+  
+  pull_requests:
+    scope: local
