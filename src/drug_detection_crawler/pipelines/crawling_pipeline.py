@@ -81,28 +81,35 @@ def collect_elements_to_json(driver, pause_time=2, max_scroll=30, stop_when_no_n
 
 
 def main():
-    print("[STEP 1] Chrome 디버그 모드 실행")
+    print("[INFO] Chrome 디버그 모드 실행")
     run_chrome_debug()
+    command = "y"
 
-    print()
-    print("[STEP 2] 브라우저에서 원하는 페이지를 직접 열어주세요.")
-    print("         로그인/검색/페이지 이동까지 끝낸 뒤 Enter를 누르면 크롤링을 시작합니다.")
-    input(">>> 준비가 끝났으면 Enter: ")
+    while command = "y":
+        print()
+        print("[INFO] 브라우저에서 원하는 페이지를 직접 열어주세요.")
+        print("[INFO] 로그인/검색/페이지 이동까지 끝낸 뒤 Enter를 누르면 크롤링을 시작합니다.")
+        input(">>> 준비가 끝났으면 Enter: ")
 
-    print()
-    print("[STEP 3] Selenium이 디버그 크롬에 연결합니다.")
-    driver = connect_driver()
+        print()
+        print("[INFO] Selenium이 디버그 크롬에 연결합니다.")
+        driver = connect_driver()
 
-    print("[STEP 4] 현재 페이지 URL")
-    print(driver.current_url)
+        print("[INFO] 현재 페이지 URL")
+        print(driver.current_url)
 
-    print()
-    print("[STEP 5] 크롤링 시작")
-    collect_elements_to_json(driver)
+        print()
+        print("[INFO] 크롤링 시작")
+        collect_elements_to_json(driver)
 
-    print()
-    print(f"[DONE] 저장 완료: {RAW_JSON_PATH}")
+        print()
+        print(f"[DONE] 저장 완료: {RAW_JSON_PATH}")
 
+        print("[INFO] 크롤링을 계속하시겠습니까?")
+        command = lower(input(">>> [y/n]: "))
+    
+    print("[INFO] 크롤링을 종료합니다.")
+    
 
 if __name__ == "__main__":
     main()
