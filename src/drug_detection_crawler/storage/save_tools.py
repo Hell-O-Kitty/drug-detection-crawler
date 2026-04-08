@@ -6,7 +6,7 @@ import base64
 import mimetypes
 from pathlib import Path
 from urllib.parse import urlparse
-
+import re
 
 CSV_FIELDS = [
     "num",
@@ -123,6 +123,11 @@ def get_last_num(rows: list[dict]) -> int:
         except (TypeError, ValueError):
             print(f"[num 파싱 스킵] invalid num={row.get('num')!r}"
     return max(nums, default=0)
+  
+def contains_korean(text: str) -> bool:
+    if not text:
+        return False
+    return bool(re.search(r"[가-힣]", text))
 
 # -----------------------------
 # URL/파일/이미지 처리
@@ -326,11 +331,19 @@ def save_json_to_csv(file_path, saved_file_name):
 
     added_count = 0
     skipped_count = 0
+    korean_skipped_count = 0
 
     target_items = json_data[start_index:]
 
     for item in target_items:
         normalized = normalize_json_item(item)
+
+        if not contains_korean(normalized.get("text", "")):
+            korean_skipped_count += 1
+            print(f"[한국어 없음 스킵] text={normalized.get('text')}")
+            continue
+
+
         current_key = build_csv_duplicate_key(normalized)
 
         if current_key and current_key in existing_keys:
@@ -357,3 +370,4 @@ def save_json_to_csv(file_path, saved_file_name):
 
     print(f"추가된 데이터: {added_count}개")
     print(f"중복으로 스킵된 데이터: {skipped_count}개")
+    print(f"한국어 미포함 스킵: {korean_skipped_count}개")
