@@ -121,7 +121,7 @@ def get_last_num(rows: list[dict]) -> int:
         try:
             nums.append(int(row.get("num", 0)))
         except (TypeError, ValueError):
-            print(f"[num 파싱 스킵] invalid num={row.get('num')!r}"
+            print(f"[num 파싱 스킵] invalid num={row.get('num')!r}")
     return max(nums, default=0)
   
 def contains_korean(text: str) -> bool:
