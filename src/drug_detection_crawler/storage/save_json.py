@@ -11,8 +11,9 @@ def load_json(file_path: Path) -> list:
 
 def save_json(data, file_path: Path):
     file_path.parent.mkdir(parents=True, exist_ok=True)
+    tmp_path = file_path.with_name(f"{file_path.name}.tmp")
 
-    with open(file_path, "w", encoding="utf-8") as f:
+    with open(tmp_path, "w", encoding="utf-8") as f:
         json.dump(
             data,
             f,
@@ -20,3 +21,5 @@ def save_json(data, file_path: Path):
             indent=1,
             separators=(",", ": ")
         )
+
+    tmp_path.replace(file_path)
