@@ -1,5 +1,5 @@
 import subprocess
-from src.config.settings import CHROME_PATH, USER_DATA_DIR, DEBUG_PORT
+from drug_detection_crawler.config.settings import CHROME_PATH, USER_DATA_DIR, DEBUG_PORT
 
 def run_chrome_debug():
     USER_DATA_DIR.mkdir(exist_ok=True)

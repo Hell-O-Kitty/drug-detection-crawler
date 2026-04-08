@@ -1,26 +1,12 @@
 import json
 from pathlib import Path
 
-from src.parsers.tweet_parser import parse_collected_item
-from src.config.settings import RAW_JSON_PATH
+from drug_detection_crawler.parsers.tweet_parser import parse_collected_item
+from drug_detection_crawler.config.settings import RAW_JSON_PATH
+from drug_detection_crawler.storage.save_json import load_json, save_json
 
 RAW_FILE_PATH = RAW_JSON_PATH
 OUTPUT_FILE_PATH = Path("data/tweet_datas.json")
-
-
-def load_json(file_path: Path):
-    if not file_path.exists():
-        return []
-
-    with open(file_path, "r", encoding="utf-8") as f:
-        return json.load(f)
-
-
-def save_json(data, file_path: Path):
-    file_path.parent.mkdir(parents=True, exist_ok=True)
-
-    with open(file_path, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
 
 
 def normalize_key(value) -> str:

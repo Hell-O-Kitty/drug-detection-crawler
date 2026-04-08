@@ -50,6 +50,8 @@ HTML_SAVE_DIR = BASE_DIR/"data"/"raw"/"html"
 RAW_JSON_DIR = BASE_DIR / "data"
 RAW_JSON_PATH = RAW_JSON_DIR / "collected_elements.json"
 
+PARSED_JSON_PATH = RAW_JSON_DIR / "tweet_datas.json"
+
 # 크롤링 단위 (HTML_TAG)
 HTML_TAG = os.getenv("HTML_TAG", "article")
 

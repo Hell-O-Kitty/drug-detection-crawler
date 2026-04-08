@@ -6,9 +6,9 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
-from src.crawlers.chrome_debug_launcher import run_chrome_debug
-from src.config.settings import DEBUG_PORT, HTML_TAG, SOURCE_NAME, RAW_JSON_PATH
-from src.storage.save_json import load_json, save_json
+from drug_detection_crawler.crawlers.chrome_debug_launcher import run_chrome_debug
+from drug_detection_crawler.config.settings import DEBUG_PORT, HTML_TAG, SOURCE_NAME, RAW_JSON_PATH, PARSED_JSON_PATH
+from drug_detection_crawlerrc.storage.save_json import load_json, save_json
 
 
 def connect_driver():
@@ -26,10 +26,9 @@ def build_item_key(raw_html: str) -> str:
 
 
 def collect_elements_to_json(driver, pause_time=2, max_scroll=30, stop_when_no_new=3):
-    existing = load_json(RAW_JSON_PATH)
-    seen_keys = {item["item_key"] for item in existing if "item_key" in item}
+    seen_keys = set({})
 
-    results = existing[:]
+    results = []
     no_new_count = 0
 
     for scroll_idx in range(max_scroll):

@@ -1,0 +1,10 @@
+[project]
+name = "drug_detection_crawler"
+version = "0.1.0"
+description = "Drug detection crawler project"
+authors = [
+    { name="gjsk132" }
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
