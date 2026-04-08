@@ -85,7 +85,7 @@ def main():
     run_chrome_debug()
     command = "y"
 
-    while command = "y":
+    while command == "y":
         print()
         print("[INFO] 브라우저에서 원하는 페이지를 직접 열어주세요.")
         print("[INFO] 로그인/검색/페이지 이동까지 끝낸 뒤 Enter를 누르면 크롤링을 시작합니다.")
@@ -109,7 +109,7 @@ def main():
         command = lower(input(">>> [y/n]: "))
     
     print("[INFO] 크롤링을 종료합니다.")
-    
+
 
 if __name__ == "__main__":
     main()
