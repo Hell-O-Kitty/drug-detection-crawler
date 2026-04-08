@@ -7,7 +7,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
 from drug_detection_crawler.crawlers.chrome_debug_launcher import run_chrome_debug
-from drug_detection_crawler.config.settings import DEBUG_PORT, HTML_TAG, SOURCE_NAME, RAW_JSON_PATH
+from drug_detection_crawler.config.settings import DEBUG_PORT, HTML_TAG, SOURCE_NAME, RAW_JSON_PATH, PARSED_JSON_PATH
 from drug_detection_crawlerrc.storage.save_json import load_json, save_json
 
 
@@ -26,7 +26,7 @@ def build_item_key(raw_html: str) -> str:
 
 
 def collect_elements_to_json(driver, pause_time=2, max_scroll=30, stop_when_no_new=3):
-    existing = load_json(RAW_JSON_PATH)
+    existing = load_json(PARSED_JSON_PATH)
     seen_keys = {item["item_key"] for item in existing if "item_key" in item}
 
     results = existing[:]
