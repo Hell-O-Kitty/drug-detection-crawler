@@ -26,9 +26,11 @@ def build_item_key(raw_html: str) -> str:
 
 
 def collect_elements_to_json(driver, pause_time=2, max_scroll=30, stop_when_no_new=3):
-    seen_keys = set({})
+    existing_results = load_json(RAW_JSON_PATH) if RAW_JSON_PATH.exists() else []
 
-    results = []
+    results = existing_results[:]
+    seen_keys = {item["item_key"] for item in existing_results if "item_key" in item}
+
     no_new_count = 0
 
     for scroll_idx in range(max_scroll):
