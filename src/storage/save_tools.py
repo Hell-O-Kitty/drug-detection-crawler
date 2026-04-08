@@ -6,7 +6,7 @@ import base64
 import mimetypes
 from pathlib import Path
 from urllib.parse import urlparse
-
+import re
 
 CSV_FIELDS = [
     "num",
@@ -115,6 +115,10 @@ def append_csv_row(csv_path: str, row: dict) -> None:
 
         writer.writerow(row)
 
+def contains_korean(text: str) -> bool:
+    if not text:
+        return False
+    return bool(re.search(r"[가-힣]", text))
 
 # -----------------------------
 # URL/파일/이미지 처리
@@ -325,6 +329,13 @@ def save_json_to_csv(file_path, saved_file_name):
 
     for item in json_data:
         normalized = normalize_json_item(item)
+
+        if not contains_korean(normalized.get("text", "")):
+            skippted_count += 1
+            print(f"[한국어 없음 스킵] text={normalized.get('text')}")
+            continue
+
+
         current_key = build_csv_duplicate_key(normalized)
 
         if current_key and current_key in existing_keys:
