@@ -132,6 +132,8 @@ def parse_collected_item(item: dict) -> dict:
         return {}
 
     item_key = make_item_key(parsed)
+    if not item_key:
+        return {}
 
     return {
         "item_key": item_key,
