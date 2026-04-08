@@ -331,7 +331,7 @@ def save_json_to_csv(file_path, saved_file_name):
         normalized = normalize_json_item(item)
 
         if not contains_korean(normalized.get("text", "")):
-            skippted_count += 1
+            skipped_count += 1
             print(f"[한국어 없음 스킵] text={normalized.get('text')}")
             continue
 
