@@ -326,12 +326,13 @@ def save_json_to_csv(file_path, saved_file_name):
 
     added_count = 0
     skipped_count = 0
+    korean_skipped_count = 0
 
     for item in json_data:
         normalized = normalize_json_item(item)
 
         if not contains_korean(normalized.get("text", "")):
-            skipped_count += 1
+            korean_skipped_count += 1
             print(f"[한국어 없음 스킵] text={normalized.get('text')}")
             continue
 
@@ -362,3 +363,4 @@ def save_json_to_csv(file_path, saved_file_name):
 
     print(f"추가된 데이터: {added_count}개")
     print(f"중복으로 스킵된 데이터: {skipped_count}개")
+    print(f"한국어 미포함 스킵: {korean_skipped_count}개")
