@@ -5,8 +5,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
-from config.settings import DEBUG_PORT, HTML_TAG, SOURCE_NAME, RAW_JSON_PATH
-from storage.save_json import load_json, save_json
+from src.config.settings import DEBUG_PORT, HTML_TAG, SOURCE_NAME, RAW_JSON_PATH
+from src.storage.save_json import load_json, save_json
 
 
 def connect_driver():
