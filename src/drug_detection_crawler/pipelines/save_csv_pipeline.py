@@ -4,8 +4,8 @@ import csv
 
 from drug_detection_crawler.storage.save_tools import save_json_to_csv
 
-INPUT_JSON_PATH = Path("data/tweet_datas.json")
-OUTPUT_CSV_PATH = Path("data/tweets.csv")
+INPUT_JSON_PATH = RAW_JSON_DIR / "tweet_datas.json"
+OUTPUT_CSV_PATH = RAW_JSON_DIR / "tweets.csv"
 
 
 def load_json_preview(file_path: Path, preview_count: int = 2):

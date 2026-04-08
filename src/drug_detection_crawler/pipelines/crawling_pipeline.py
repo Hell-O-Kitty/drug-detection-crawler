@@ -8,7 +8,7 @@ from selenium.webdriver.common.by import By
 
 from drug_detection_crawler.crawlers.chrome_debug_launcher import run_chrome_debug
 from drug_detection_crawler.config.settings import DEBUG_PORT, HTML_TAG, SOURCE_NAME, RAW_JSON_PATH, PARSED_JSON_PATH
-from drug_detection_crawlerrc.storage.save_json import load_json, save_json
+from drug_detection_crawler.storage.save_json import load_json, save_json
 
 
 def connect_driver():
@@ -106,7 +106,8 @@ def main():
         print(f"[DONE] 저장 완료: {RAW_JSON_PATH}")
 
         print("[INFO] 크롤링을 계속하시겠습니까?")
-        command = lower(input(">>> [y/n]: "))
+        command = (input(">>> [y/n]: "))
+        command = command.lower()
     
     print("[INFO] 크롤링을 종료합니다.")
 

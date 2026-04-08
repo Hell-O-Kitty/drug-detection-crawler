@@ -230,7 +230,6 @@ def normalize_json_item(item: dict) -> dict:
         "num": "",
         "nickname": normalize_to_string(parsed.get("nickname")),
         "user_id": normalize_to_string(parsed.get("user_id")),
-        "profile_image_url": normalize_to_string(parsed.get("profile_image_url")),
         "date": normalize_to_string(parsed.get("date")),
         "text": normalize_to_string(parsed.get("text")),
         "counts_reply": normalize_to_string(counts.get("reply")),
