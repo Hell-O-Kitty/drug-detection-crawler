@@ -6,9 +6,9 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
-from src.crawlers.chrome_debug_launcher import run_chrome_debug
-from src.config.settings import DEBUG_PORT, HTML_TAG, SOURCE_NAME, RAW_JSON_PATH
-from src.storage.save_json import load_json, save_json
+from drug_detection_crawler.crawlers.chrome_debug_launcher import run_chrome_debug
+from drug_detection_crawler.config.settings import DEBUG_PORT, HTML_TAG, SOURCE_NAME, RAW_JSON_PATH
+from drug_detection_crawlerrc.storage.save_json import load_json, save_json
 
 
 def connect_driver():

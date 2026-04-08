@@ -2,7 +2,7 @@ from pathlib import Path
 import json
 import csv
 
-from src.storage.save_tools import save_json_to_csv
+from drug_detection_crawler.storage.save_tools import save_json_to_csv
 
 INPUT_JSON_PATH = Path("data/tweet_datas.json")
 OUTPUT_CSV_PATH = Path("data/tweets.csv")
