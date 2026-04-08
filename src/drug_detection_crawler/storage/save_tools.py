@@ -115,6 +115,14 @@ def append_csv_row(csv_path: str, row: dict) -> None:
 
         writer.writerow(row)
 
+def get_last_num(rows: list[dict]) -> int:
+    nums = []
+    for row in rows:
+        try:
+            nums.append(int(row.get("num", 0)))
+        except Exception:
+            pass
+    return max(nums, default=0)
 
 # -----------------------------
 # URL/파일/이미지 처리
@@ -304,13 +312,6 @@ def convert_url_fields_to_base64(row_num: int, row_data: dict, image_save_dir="d
 # 메인 저장 함수
 # -----------------------------
 def save_json_to_csv(file_path, saved_file_name):
-    """
-    1. json 파일을 입력 받고 순회
-    2. csv의 date+user_id 기준으로 중복 확인
-    3. 중복이 아니면 새 row 번호(num) 부여
-    4. image_urls / video_video_poster_url 만 다운로드 후 base64 저장
-    5. profile_image_url 은 원본 URL 문자열 유지
-    """
     json_data = read_json_file(file_path)
 
     if not isinstance(json_data, list):
@@ -318,12 +319,17 @@ def save_json_to_csv(file_path, saved_file_name):
 
     existing_rows = read_existing_csv_rows(saved_file_name)
     existing_keys = get_existing_key_set(existing_rows)
-    next_num = get_next_num(existing_rows)
+
+    last_num = get_last_num(existing_rows)
+    start_index = last_num   # num은 1부터, index는 0부터라서 그대로 다음 시작점이 됨
+    next_num = last_num + 1
 
     added_count = 0
     skipped_count = 0
 
-    for item in json_data:
+    target_items = json_data[start_index:]
+
+    for item in target_items:
         normalized = normalize_json_item(item)
         current_key = build_csv_duplicate_key(normalized)
 
