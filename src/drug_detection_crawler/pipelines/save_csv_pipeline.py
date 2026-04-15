@@ -7,6 +7,7 @@ from drug_detection_crawler.config.settings import RAW_JSON_DIR
 
 INPUT_JSON_PATH = RAW_JSON_DIR / "tweet_datas.json"
 OUTPUT_CSV_PATH = RAW_JSON_DIR / "tweets.csv"
+OUTPUT_PROCESSED_JSON_PATH = RAW_JSON_DIR / "already_processed_tweets.json"
 
 
 def load_json_preview(file_path: Path, preview_count: int = 2):
@@ -35,6 +36,7 @@ def main():
     save_json_to_csv(
         file_path=str(INPUT_JSON_PATH),
         saved_file_name=str(OUTPUT_CSV_PATH),
+        new_json_save_path=str(OUTPUT_CSV_PATH)
     )
 
     print("\n[DONE] CSV 테스트 파이프라인 완료")

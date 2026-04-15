@@ -315,7 +315,7 @@ def convert_url_fields_to_base64(row_num: int, row_data: dict, image_save_dir="d
 # -----------------------------
 # 메인 저장 함수
 # -----------------------------
-def save_json_to_csv(file_path, saved_file_name):
+def save_json_to_csv(file_path, saved_file_name, new_json_save_path):
     json_data = read_json_file(file_path)
 
     if not isinstance(json_data, list):
@@ -323,35 +323,33 @@ def save_json_to_csv(file_path, saved_file_name):
 
     existing_rows = read_existing_csv_rows(saved_file_name)
     existing_keys = get_existing_key_set(existing_rows)
-
-    last_num = get_last_num(existing_rows)
-    start_index = last_num   # num은 1부터, index는 0부터라서 그대로 다음 시작점이 됨
-    next_num = last_num + 1
+    next_num = get_last_num(existing_rows) + 1
 
     added_count = 0
     skipped_count = 0
     korean_skipped_count = 0
 
-    target_items = json_data[start_index:]
+    new_items = []
 
-    for item in target_items:
+    while json_data:
+        item = json_data.pop(0)
+
         normalized = normalize_json_item(item)
 
         if not contains_korean(normalized.get("text", "")):
             korean_skipped_count += 1
-            print(f"[한국어 없음 스킵] text={normalized.get('text')}")
             continue
-
 
         current_key = build_csv_duplicate_key(normalized)
 
         if current_key and current_key in existing_keys:
             skipped_count += 1
-            print(f"[중복 스킵] key={current_key}")
             continue
 
+        # num 부여
         normalized["num"] = str(next_num)
 
+        CSV용 데이터
         converted_row = convert_url_fields_to_base64(
             row_num=next_num,
             row_data=normalized,
@@ -360,6 +358,9 @@ def save_json_to_csv(file_path, saved_file_name):
 
         append_csv_row(saved_file_name, converted_row)
 
+        # 중복이 아닌 값은 원본 JSON 형태로 따로 저장
+        new_items.append(item)
+
         if current_key:
             existing_keys.add(current_key)
 
@@ -367,6 +368,10 @@ def save_json_to_csv(file_path, saved_file_name):
         next_num += 1
         added_count += 1
 
+    # 중복이 아닌 JSON값들을 파일로 저장
+    if new_items:
+        save_to_json(new_items, new_json_save_path)
+
     print(f"추가된 데이터: {added_count}개")
-    print(f"중복으로 스킵된 데이터: {skipped_count}개")
-    print(f"한국어 미포함 스킵: {korean_skipped_count}개")
+    print(f"중복 스킵: {skipped_count}개")
+    print(f"한국어 스킵: {korean_skipped_count}개")
