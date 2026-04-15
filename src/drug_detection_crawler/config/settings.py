@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # 프로젝트 루트
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
 
 def get_chrome_path():
     path = (
@@ -44,11 +44,11 @@ DEBUG_PORT = int(os.getenv("DEBUG_PORT", 9222))
 USER_DATA_DIR = Path.home() / "selenium_profile"
 
 # HTML 저장 위치
-HTML_SAVE_DIR = BASE_DIR/"data"/"raw"/"html"
+HTML_SAVE_DIR = BASE_DIR/"initial_crawling_data"/"raw"/"html"
 
 # 원본 JSON 저장 위치
-RAW_JSON_DIR = BASE_DIR / "data"
-RAW_JSON_PATH = RAW_JSON_DIR / "collected_elements.json"
+RAW_JSON_DIR = BASE_DIR / "initial_crawling_data"
+RAW_JSON_PATH = BASE_DIR / "initial_crawling_data" / "collected_elements.json"
 
 PARSED_JSON_PATH = RAW_JSON_DIR / "tweet_datas.json"
 
