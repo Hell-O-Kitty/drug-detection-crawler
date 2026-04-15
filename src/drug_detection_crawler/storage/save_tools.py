@@ -12,7 +12,6 @@ CSV_FIELDS = [
     "num",
     "nickname",
     "user_id",
-    "profile_image_url",
     "date",
     "text",
     "counts_reply",
