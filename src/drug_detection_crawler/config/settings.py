@@ -50,10 +50,18 @@ HTML_SAVE_DIR = BASE_DIR/"initial_crawling_data"/"raw"/"html"
 RAW_JSON_DIR = BASE_DIR / "initial_crawling_data"
 RAW_JSON_PATH = BASE_DIR / "initial_crawling_data" / "collected_elements.json"
 
-PARSED_JSON_PATH = RAW_JSON_DIR / "tweet_datas.json"
-
 # 크롤링 단위 (HTML_TAG)
 HTML_TAG = os.getenv("HTML_TAG", "article")
 
 # 원본 소스 이름
 SOURCE_NAME = os.getenv("SOURCE_NAME", "twitter_feed")
+
+# tweet_datas.json (마약 관련)
+# PARSED_JSON_PATH = RAW_JSON_DIR / "tweet_datas.json"
+# INPUT_JSON_PATH  = RAW_JSON_DIR / "tweet_datas.json"
+# OUTPUT_CSV_PATH = RAW_JSON_DIR / "tweets.csv"
+
+# tweet_datas.json (의약품 관련 메세지)
+PARSED_JSON_PATH = RAW_JSON_DIR / "tweet_medi_datas.json"
+INPUT_JSON_PATH  = RAW_JSON_DIR / "tweet_medi_datas.json"
+OUTPUT_CSV_PATH = RAW_JSON_DIR / "tweets_medi.csv"

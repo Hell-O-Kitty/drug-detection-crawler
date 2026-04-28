@@ -3,12 +3,9 @@ import json
 import csv
 
 from drug_detection_crawler.storage.save_tools import save_json_to_csv
-from drug_detection_crawler.config.settings import RAW_JSON_DIR
+from drug_detection_crawler.config.settings import RAW_JSON_DIR, INPUT_JSON_PATH, OUTPUT_CSV_PATH
 
-INPUT_JSON_PATH = RAW_JSON_DIR / "tweet_datas.json"
-OUTPUT_CSV_PATH = RAW_JSON_DIR / "tweets.csv"
 OUTPUT_PROCESSED_JSON_PATH = RAW_JSON_DIR / "already_processed_tweets.json"
-
 
 def load_json_preview(file_path: Path, preview_count: int = 2):
     if not file_path.exists():
