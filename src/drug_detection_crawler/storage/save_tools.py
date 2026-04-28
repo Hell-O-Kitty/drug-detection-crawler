@@ -349,7 +349,7 @@ def save_json_to_csv(file_path, saved_file_name, new_json_save_path):
         # num 부여
         normalized["num"] = str(next_num)
 
-        CSV용 데이터
+        # CSV용 데이터
         converted_row = convert_url_fields_to_base64(
             row_num=next_num,
             row_data=normalized,
