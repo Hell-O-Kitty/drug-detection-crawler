@@ -48,7 +48,7 @@ HTML_SAVE_DIR = BASE_DIR/"initial_crawling_data"/"raw"/"html"
 
 # 원본 JSON 저장 위치
 RAW_JSON_DIR = BASE_DIR / "initial_crawling_data"
-RAW_JSON_PATH = BASE_DIR / "initial_crawling_data" / "collected_elements.json"
+RAW_JSON_PATH = RAW_JSON_DIR / "collected_elements.json"
 
 PARSED_JSON_PATH = RAW_JSON_DIR / "tweet_datas.json"
 
@@ -57,3 +57,6 @@ HTML_TAG = os.getenv("HTML_TAG", "article")
 
 # 원본 소스 이름
 SOURCE_NAME = os.getenv("SOURCE_NAME", "twitter_feed")
+
+# 이미지 다운 주소
+DOWNLOADED_IMAGE_PATH = RAW_JSON_DIR/ "downloaded_images"
