@@ -1,0 +1,939 @@
+{
+  "data": [
+    {
+      "entities": {
+        "urls": [
+          {
+            "start": 122,
+            "end": 145,
+            "url": "https://t.co/6NvzI2Q6dJ",
+            "expanded_url": "https://x.com/wllkj87975328/status/2049386875933307324/photo/1",
+            "display_url": "pic.x.com/6NvzI2Q6dJ",
+            "media_key": "3_2049386867951566848"
+          }
+        ],
+        "hashtags": [
+          {
+            "start": 110,
+            "end": 113,
+            "tag": "오방"
+          },
+          {
+            "start": 114,
+            "end": 117,
+            "tag": "게이"
+          },
+          {
+            "start": 118,
+            "end": 121,
+            "tag": "찬술"
+          }
+        ]
+      },
+      "conversation_id": "2049386875933307324",
+      "edit_history_tweet_ids": [
+        "2049386875933307324"
+      ],
+      "created_at": "2026-04-29T07:14:41.000Z",
+      "attachments": {
+        "media_keys": [
+          "3_2049386867951566848"
+        ]
+      },
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 21
+      },
+      "id": "2049386875933307324",
+      "reply_settings": "everyone",
+      "text": "오방은  도지네 dogenae\n찬술 작대기 차가운술 시원한술\n브액 케이 캔디 한꼽 게이\n직원구함 전국가능우대\n조건조율가능 \n없는거빼고 왠만하면 수도권에는\n다있음 없는것은없음 \n작대기파는곳 고액알바\n#오방 #게이 #찬술 https://t.co/6NvzI2Q6dJ",
+      "lang": "ko",
+      "possibly_sensitive": false,
+      "author_id": "1764921718303272960"
+    },
+    {
+      "entities": {
+        "urls": [
+          {
+            "start": 142,
+            "end": 165,
+            "url": "https://t.co/biR714l2CU",
+            "expanded_url": "https://t.me/coco4989",
+            "display_url": "t.me/coco4989",
+            "images": [
+              {
+                "url": "https://pbs.twimg.com/news_img/2048935799761129472/PqsEIqNd?format=jpg&name=orig",
+                "width": 320,
+                "height": 320
+              },
+              {
+                "url": "https://pbs.twimg.com/news_img/2048935799761129472/PqsEIqNd?format=jpg&name=150x150",
+                "width": 150,
+                "height": 150
+              }
+            ],
+            "status": 200,
+            "title": "코코 [일반대화로 문의]",
+            "description": "@coco4989 외 사칭 일반대화로 비대 달라고 해주세요. 거래하신분들은 채널 필요하시면 말씀해주세요",
+            "unwound_url": "https://t.me/coco4989"
+          },
+          {
+            "start": 177,
+            "end": 200,
+            "url": "https://t.co/u9OEyhwD3Y",
+            "expanded_url": "https://x.com/RivasTerrid/status/2049378163277316502/photo/1",
+            "display_url": "pic.x.com/u9OEyhwD3Y",
+            "media_key": "3_2049378161318887424"
+          }
+        ],
+        "hashtags": [
+          {
+            "start": 126,
+            "end": 131,
+            "tag": "시원한술"
+          },
+          {
+            "start": 132,
+            "end": 135,
+            "tag": "술친"
+          }
+        ],
+        "mentions": [
+          {
+            "start": 18,
+            "end": 27,
+            "username": "coco4989",
+            "id": "3192161160"
+          }
+        ]
+      },
+      "conversation_id": "2049378163277316502",
+      "edit_history_tweet_ids": [
+        "2049378163277316502"
+      ],
+      "created_at": "2026-04-29T06:40:04.000Z",
+      "attachments": {
+        "media_keys": [
+          "3_2049378161318887424"
+        ]
+      },
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "id": "2049378163277316502",
+      "reply_settings": "everyone",
+      "text": "고퀄리티 아이스는 ✿코코✿ 텔 \n@coco4989\n\n찬술 아이스\n부산아이스 강남작대기\n삥두 좋은술 먹고 오방 가자\n ㄹㅅㄱ \n\n차가운술 작대기\n\n케이 캔디 허브 \n\n대마초 판매\n\n술친 파티술 \n\n파티마약 \n\n최고단가 최고퀄\n\n#시원한술 #술친 \n텔레 \n\nhttps://t.co/biR714l2CU &lt;&lt;클릭 https://t.co/u9OEyhwD3Y",
+      "lang": "ko",
+      "possibly_sensitive": false,
+      "author_id": "2036130123477602304"
+    },
+    {
+      "entities": {
+        "urls": [
+          {
+            "start": 121,
+            "end": 144,
+            "url": "https://t.co/rKgP8cqGQs",
+            "expanded_url": "http://t.me/bing824",
+            "display_url": "t.me/bing824",
+            "images": [
+              {
+                "url": "https://pbs.twimg.com/news_img/2047537347328131072/nXVbMblg?format=jpg&name=orig",
+                "width": 320,
+                "height": 320
+              },
+              {
+                "url": "https://pbs.twimg.com/news_img/2047537347328131072/nXVbMblg?format=jpg&name=150x150",
+                "width": 150,
+                "height": 150
+              }
+            ],
+            "status": 200,
+            "title": "빙그레 [문의시 일반대화]",
+            "description": "기프트 #3545 확인 채널 @bing8240 외 사칭 일반대화로 비대 달라고 해주세요. 거래하신분들은 채널 필요하시면 말씀해주세요",
+            "unwound_url": "https://t.me/bing824"
+          },
+          {
+            "start": 147,
+            "end": 170,
+            "url": "https://t.co/zDQUsYN0sh",
+            "expanded_url": "https://x.com/Howard_Step/status/2049349222890099053/photo/1",
+            "display_url": "pic.x.com/zDQUsYN0sh",
+            "media_key": "3_2049349221007159296"
+          }
+        ],
+        "hashtags": [
+          {
+            "start": 84,
+            "end": 87,
+            "tag": "술친"
+          },
+          {
+            "start": 88,
+            "end": 95,
+            "tag": "아이스작대기"
+          }
+        ]
+      },
+      "conversation_id": "2049349222890099053",
+      "edit_history_tweet_ids": [
+        "2049349222890099053"
+      ],
+      "created_at": "2026-04-29T04:45:04.000Z",
+      "attachments": {
+        "media_keys": [
+          "3_2049349221007159296"
+        ]
+      },
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "id": "2049349222890099053",
+      "reply_settings": "everyone",
+      "text": "찬술 빙두 떨액\n아이스크리스탈\n작대기\n전국드랍 한작대기\n\n차가운술 빙두\n작대기술 아이스술\n\n사티바 클럽파티 떨\n브액 케이 캔디팝니다\n\n오방 ㄹㅅㄱ \n\n#술친\n#아이스작대기\n\n텔레 : bing824\n\n라퍼 구인합니다~\nhttps://t.co/rKgP8cqGQs 😍 https://t.co/zDQUsYN0sh",
+      "lang": "ko",
+      "possibly_sensitive": false,
+      "author_id": "2036328361287622658"
+    },
+    {
+      "in_reply_to_user_id": "2042592848348954624",
+      "conversation_id": "2049247695400018098",
+      "edit_history_tweet_ids": [
+        "2049285922186043473"
+      ],
+      "created_at": "2026-04-29T00:33:32.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "2049285321549095377"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 14
+      },
+      "entities": {
+        "mentions": [
+          {
+            "start": 0,
+            "end": 14,
+            "username": "bichwigungmao",
+            "id": "2042592848348954624"
+          }
+        ]
+      },
+      "id": "2049285922186043473",
+      "reply_settings": "everyone",
+      "text": "@bichwigungmao 님에 점하나 붙으면 남이되고\n시아비에 작대기 붙으면 지아비가 되는 세계관",
+      "lang": "ko",
+      "possibly_sensitive": false,
+      "author_id": "2017594720806158336"
+    },
+    {
+      "entities": {
+        "urls": [
+          {
+            "start": 147,
+            "end": 170,
+            "url": "https://t.co/VW2yopfbo3",
+            "expanded_url": "http://t.me/coco4989",
+            "display_url": "t.me/coco4989",
+            "images": [
+              {
+                "url": "https://pbs.twimg.com/news_img/2048935799761129472/PqsEIqNd?format=jpg&name=orig",
+                "width": 320,
+                "height": 320
+              },
+              {
+                "url": "https://pbs.twimg.com/news_img/2048935799761129472/PqsEIqNd?format=jpg&name=150x150",
+                "width": 150,
+                "height": 150
+              }
+            ],
+            "status": 200,
+            "title": "코코 [일반대화로 문의]",
+            "description": "@coco4989 외 사칭 일반대화로 비대 달라고 해주세요. 거래하신분들은 채널 필요하시면 말씀해주세요",
+            "unwound_url": "https://t.me/coco4989"
+          },
+          {
+            "start": 178,
+            "end": 201,
+            "url": "https://t.co/XUlBTE7QLe",
+            "expanded_url": "https://x.com/ricky_milld/status/2049272215829352776/photo/1",
+            "display_url": "pic.x.com/XUlBTE7QLe",
+            "media_key": "3_2049272214030372864"
+          }
+        ],
+        "hashtags": [
+          {
+            "start": 0,
+            "end": 9,
+            "tag": "작대기구매하는곳"
+          },
+          {
+            "start": 10,
+            "end": 18,
+            "tag": "찬술구매하는곳"
+          },
+          {
+            "start": 118,
+            "end": 121,
+            "tag": "찬술"
+          },
+          {
+            "start": 122,
+            "end": 125,
+            "tag": "오방"
+          },
+          {
+            "start": 126,
+            "end": 130,
+            "tag": "ㄹㅅㄱ"
+          }
+        ],
+        "mentions": [
+          {
+            "start": 136,
+            "end": 145,
+            "username": "coco4989",
+            "id": "3192161160"
+          }
+        ]
+      },
+      "conversation_id": "2049272215829352776",
+      "edit_history_tweet_ids": [
+        "2049272215829352776"
+      ],
+      "created_at": "2026-04-28T23:39:04.000Z",
+      "attachments": {
+        "media_keys": [
+          "3_2049272214030372864"
+        ]
+      },
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "id": "2049272215829352776",
+      "reply_settings": "everyone",
+      "text": "#작대기구매하는곳 #찬술구매하는곳\n\n작대기 브액 각성제 흥분제\n클럽 케이 캔디 케타민 헙 허브\n찬술 작대기 아이스 차가운술 오방 ㄹㅅㄱ\n빙두 브액 시원한술 한꼽 \n역시는 역시~\n아이스맛집 연락주세요 😬\n사칭주의\n#찬술 #오방 #ㄹㅅㄱ\n\n텔문의 @coco4989\n\nhttps://t.co/VW2yopfbo3 눌러주세요🧸 https://t.co/XUlBTE7QLe",
+      "lang": "ko",
+      "possibly_sensitive": false,
+      "author_id": "2036176417906683904"
+    },
+    {
+      "in_reply_to_user_id": "1823646781412106240",
+      "conversation_id": "2048673071259910475",
+      "edit_history_tweet_ids": [
+        "2049240109967606225"
+      ],
+      "created_at": "2026-04-28T21:31:29.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "2048673071259910475"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 5
+      },
+      "entities": {
+        "mentions": [
+          {
+            "start": 0,
+            "end": 10,
+            "username": "gurmi0526",
+            "id": "1823646781412106240"
+          }
+        ]
+      },
+      "id": "2049240109967606225",
+      "reply_settings": "everyone",
+      "text": "@gurmi0526 작대기",
+      "lang": "ko",
+      "possibly_sensitive": false,
+      "author_id": "1716536210028634112"
+    },
+    {
+      "in_reply_to_user_id": "2046630560416899078",
+      "conversation_id": "2049194551026586081",
+      "edit_history_tweet_ids": [
+        "2049195752623362118"
+      ],
+      "created_at": "2026-04-28T18:35:14.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "2049194551026586081"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 22
+      },
+      "id": "2049195752623362118",
+      "reply_settings": "everyone",
+      "text": "얘가 제일 좋고 편해\n나를 제일 좋아해줘\n\n이게…………….. 이 일방적 사랑의 작대기 같이 보이는 모양이 사실은 걍 묘, 와 집사 인 점\n세상 대놓고 예뻐하는 애랑 나 예뻐하는거 즐기는 애(그리고상대한테좋아한다는말쑥스러워서못하는애)\n인거 좋아",
+      "lang": "ko",
+      "possibly_sensitive": false,
+      "author_id": "2046630560416899078"
+    },
+    {
+      "conversation_id": "2049167160128503838",
+      "edit_history_tweet_ids": [
+        "2049167160128503838"
+      ],
+      "created_at": "2026-04-28T16:41:37.000Z",
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 21
+      },
+      "id": "2049167160128503838",
+      "reply_settings": "everyone",
+      "text": "말도 안 되는 사랑의 작대기 그만",
+      "lang": "ko",
+      "possibly_sensitive": false,
+      "author_id": "826328539980894209"
+    },
+    {
+      "entities": {
+        "urls": [
+          {
+            "start": 38,
+            "end": 61,
+            "url": "https://t.co/0uc8CxGFVU",
+            "expanded_url": "https://x.com/phamsugar1006/status/2049116169605710234/video/1",
+            "display_url": "pic.x.com/0uc8CxGFVU",
+            "media_key": "13_2048210019683045376"
+          }
+        ]
+      },
+      "conversation_id": "2049116169605710234",
+      "edit_history_tweet_ids": [
+        "2049116169605710234"
+      ],
+      "created_at": "2026-04-28T13:19:00.000Z",
+      "attachments": {
+        "media_keys": [
+          "13_2048210019683045376"
+        ]
+      },
+      "public_metrics": {
+        "retweet_count": 9,
+        "reply_count": 0,
+        "like_count": 68,
+        "quote_count": 0,
+        "bookmark_count": 6,
+        "impression_count": 1545
+      },
+      "id": "2049116169605710234",
+      "reply_settings": "everyone",
+      "text": "뮤비에서 기억나는 부분 이야기하라니까 사랑의 작대기 해버리는 키티즈 https://t.co/0uc8CxGFVU",
+      "lang": "ko",
+      "possibly_sensitive": false,
+      "author_id": "1678707160203825152"
+    },
+    {
+      "in_reply_to_user_id": "1872939204369629192",
+      "conversation_id": "2049110632004522018",
+      "edit_history_tweet_ids": [
+        "2049111505443193024"
+      ],
+      "created_at": "2026-04-28T13:00:28.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "2049110632004522018"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 1,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 61
+      },
+      "entities": {
+        "mentions": [
+          {
+            "start": 0,
+            "end": 8,
+            "username": "iuwui_0",
+            "id": "1872939204369629192"
+          }
+        ]
+      },
+      "id": "2049111505443193024",
+      "reply_settings": "everyone",
+      "text": "@iuwui_0 isbn치면 국립중앙도서관에서 하는 isbn납본시스템? 그런 거 뜨는데 거기서 도서정보 통합검색창이요! 폰에서는 왼쪽상단 작대기 3개엿어요",
+      "lang": "ko",
+      "possibly_sensitive": false,
+      "author_id": "1900709866165202946"
+    }
+  ],
+  "includes": {
+    "media": [
+      {
+        "url": "https://pbs.twimg.com/media/HHDif4-agAABoFk.jpg",
+        "width": 1408,
+        "type": "photo",
+        "media_key": "3_2049386867951566848",
+        "height": 768
+      },
+      {
+        "url": "https://pbs.twimg.com/media/HHDalGPbAAA6_0K.jpg",
+        "width": 1280,
+        "type": "photo",
+        "media_key": "3_2049378161318887424",
+        "height": 719
+      },
+      {
+        "url": "https://pbs.twimg.com/media/HHDAQjLa8AAXRTB.jpg",
+        "width": 963,
+        "type": "photo",
+        "media_key": "3_2049349221007159296",
+        "height": 1133
+      },
+      {
+        "url": "https://pbs.twimg.com/media/HHB6OJ1b0AA2wLv.jpg",
+        "width": 1280,
+        "type": "photo",
+        "media_key": "3_2049272214030372864",
+        "height": 920
+      },
+      {
+        "width": 1920,
+        "preview_image_url": "https://pbs.twimg.com/amplify_video_thumb/2048210019683045376/img/8J94ypBmbA0JwkhQ.jpg",
+        "type": "video",
+        "public_metrics": {
+          "view_count": 583
+        },
+        "duration_ms": 18468,
+        "media_key": "13_2048210019683045376",
+        "height": 1080
+      }
+    ],
+    "users": [
+      {
+        "description": "찬술 차가운술 아이스 시원한술 #오방 아이스 작대기 파는곳",
+        "name": "사끼 오방 도지네 dogenae",
+        "id": "1764921718303272960",
+        "created_at": "2024-03-05T07:51:59.000Z",
+        "username": "wllkj87975328",
+        "public_metrics": {
+          "followers_count": 107,
+          "following_count": 47,
+          "tweet_count": 40,
+          "listed_count": 0,
+          "like_count": 25,
+          "media_count": 2
+        },
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2048669963385520128/HJaTGE4w_normal.jpg",
+        "verified": false
+      },
+      {
+        "description": "👂 고퀄 찬술 코코 coco4989",
+        "name": "고퀄 찬술 코코 coco4989",
+        "id": "2036130123477602304",
+        "created_at": "2026-03-23T17:17:10.000Z",
+        "username": "RivasTerrid",
+        "public_metrics": {
+          "followers_count": 4,
+          "following_count": 3,
+          "tweet_count": 77,
+          "listed_count": 0,
+          "like_count": 19,
+          "media_count": 27
+        },
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2044125319268052994/aqN_OOJW_normal.jpg",
+        "verified": false
+      },
+      {
+        "description": "찬술 강남 판매 🧸\n아이스후기\n케이파는곳\n빙두팝니다\n브액팝니다\n필로폰하는곳 \n차가운술구입처\n오방 #술친\n#시원한술\n#차가운술",
+        "name": "작대기,처음술,사끼,케이,텔문의 @bing824",
+        "id": "2036328361287622658",
+        "created_at": "2026-03-24T06:24:54.000Z",
+        "username": "Howard_Step",
+        "public_metrics": {
+          "followers_count": 5,
+          "following_count": 7,
+          "tweet_count": 92,
+          "listed_count": 0,
+          "like_count": 6,
+          "media_count": 28
+        },
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2044109931834683395/jBNOXMvN_normal.jpg",
+        "verified": false
+      },
+      {
+        "description": "임보라 불러주세요",
+        "name": "아기마오임씨보호",
+        "id": "2017594720806158336",
+        "location": "대한민국 강원도 영월군 약사읍 한줌리",
+        "created_at": "2026-01-31T13:44:11.000Z",
+        "username": "maox2jinsiboho",
+        "public_metrics": {
+          "followers_count": 197,
+          "following_count": 92,
+          "tweet_count": 2995,
+          "listed_count": 1,
+          "like_count": 5962,
+          "media_count": 248
+        },
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2046818880614748160/W8vBf4xW_normal.jpg",
+        "verified": false
+      },
+      {
+        "description": "壬猫\n\n세상에, 벌써 약속을 어겼네. 나만의 시녀가 아니게 되어 버렸잖니.",
+        "name": "비취",
+        "id": "2042592848348954624",
+        "location": "진시마오의 침실",
+        "created_at": "2026-04-10T13:17:50.000Z",
+        "username": "bichwigungmao",
+        "public_metrics": {
+          "followers_count": 99,
+          "following_count": 280,
+          "tweet_count": 6287,
+          "listed_count": 0,
+          "like_count": 430,
+          "media_count": 221
+        },
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2042600696651083776/iuyMEOUX_normal.jpg",
+        "verified": false
+      },
+      {
+        "description": "고퀄리티 아이스는 ✿코코✿ 텔 \n@coco4989\n\n찬술 아이스\n\n오방 ㄹㅅㄱ \n\n차가운술 작대기\n\n케이 캔디 허브 \n\n대마초 판매\n\n술친 파티술 \n\n파티마약",
+        "name": "찬술,시원한술,차가운술,아이스텔문의 @coco4989",
+        "id": "2036176417906683904",
+        "location": "SF",
+        "created_at": "2026-03-23T20:21:07.000Z",
+        "username": "ricky_milld",
+        "public_metrics": {
+          "followers_count": 2,
+          "following_count": 9,
+          "tweet_count": 85,
+          "listed_count": 0,
+          "like_count": 19,
+          "media_count": 29
+        },
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2044115618430103555/ENYiuI8V_normal.jpg",
+        "verified": false
+      },
+      {
+        "description": "대구 50년째 거주중\n이명박그네 윤거니 거치면서 보수포기",
+        "name": "정우",
+        "id": "1716536210028634112",
+        "location": "대한민국 대구",
+        "created_at": "2023-10-23T19:25:25.000Z",
+        "username": "johnshon112",
+        "public_metrics": {
+          "followers_count": 16,
+          "following_count": 12,
+          "tweet_count": 320,
+          "listed_count": 0,
+          "like_count": 12,
+          "media_count": 1
+        },
+        "profile_image_url": "https://pbs.twimg.com/profile_images/1827141098105663491/Io3iMcRO_normal.jpg",
+        "verified": false
+      },
+      {
+        "description": "잉여인간이기를 거부한 삶의 시작!         $TSLAx여행x맛집x매일이 해피 데이 🍀 \n                            여러분은 지금 이 순간 긍정 햅삐 바이러스에 전염되셨어요😘",
+        "name": "해피엔젤",
+        "id": "1823646781412106240",
+        "created_at": "2024-08-14T09:04:44.000Z",
+        "username": "gurmi0526",
+        "public_metrics": {
+          "followers_count": 8807,
+          "following_count": 4533,
+          "tweet_count": 192377,
+          "listed_count": 29,
+          "like_count": 208943,
+          "media_count": 5038
+        },
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2008655019076415488/85-YB2ac_normal.jpg",
+        "verified": false
+      },
+      {
+        "description": "중얼거리려고 만든 계정",
+        "name": "빗",
+        "id": "2046630560416899078",
+        "location": "셉페스",
+        "created_at": "2026-04-21T16:43:14.000Z",
+        "username": "bitbboo",
+        "public_metrics": {
+          "followers_count": 7,
+          "following_count": 5,
+          "tweet_count": 130,
+          "listed_count": 0,
+          "like_count": 1,
+          "media_count": 8
+        },
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2046667282815049728/hVSK5VTF_normal.jpg",
+        "verified": false
+      },
+      {
+        "description": "힐러 말고 다른 것도 키워야 할 텐데... 프사는 앨런트님",
+        "name": "열두날개",
+        "id": "826328539980894209",
+        "created_at": "2017-01-31T07:17:31.000Z",
+        "username": "imnotsaessak",
+        "public_metrics": {
+          "followers_count": 56,
+          "following_count": 163,
+          "tweet_count": 106848,
+          "listed_count": 0,
+          "like_count": 9178,
+          "media_count": 988
+        },
+        "profile_image_url": "https://pbs.twimg.com/profile_images/1848642299666042881/nYgIj6Di_normal.jpg",
+        "verified": false
+      },
+      {
+        "description": "",
+        "name": "팜슈가",
+        "id": "1678707160203825152",
+        "created_at": "2023-07-11T10:06:22.000Z",
+        "username": "phamsugar1006",
+        "public_metrics": {
+          "followers_count": 3374,
+          "following_count": 133,
+          "tweet_count": 6401,
+          "listed_count": 6,
+          "like_count": 55289,
+          "media_count": 3633
+        },
+        "profile_image_url": "https://pbs.twimg.com/profile_images/1871223772176592896/c3h3EaAq_normal.jpg",
+        "verified": false
+      },
+      {
+        "description": "@naembimile12532 | 20⬇️",
+        "name": "미르",
+        "id": "1900709866165202946",
+        "created_at": "2025-03-15T00:46:01.000Z",
+        "username": "milue0300124",
+        "public_metrics": {
+          "followers_count": 85,
+          "following_count": 78,
+          "tweet_count": 5326,
+          "listed_count": 1,
+          "like_count": 6400,
+          "media_count": 178
+        },
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2038988801985662976/0l9MSXzl_normal.jpg",
+        "verified": false
+      },
+      {
+        "description": "인장:오백님늬 은혜                                                            \n        에스크:https://t.co/U2LoCqUEnY",
+        "name": "잠재",
+        "id": "1872939204369629192",
+        "location": "단군할아버지가터잡으시고",
+        "created_at": "2024-12-28T09:34:54.000Z",
+        "username": "iuwui_0",
+        "public_metrics": {
+          "followers_count": 291,
+          "following_count": 234,
+          "tweet_count": 13711,
+          "listed_count": 2,
+          "like_count": 5593,
+          "media_count": 2911
+        },
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2042940994455531520/Algur8el_normal.jpg",
+        "verified": false
+      }
+    ],
+    "tweets": [
+      {
+        "in_reply_to_user_id": "2017594720806158336",
+        "conversation_id": "2049247695400018098",
+        "edit_history_tweet_ids": [
+          "2049285321549095377"
+        ],
+        "created_at": "2026-04-29T00:31:09.000Z",
+        "referenced_tweets": [
+          {
+            "type": "replied_to",
+            "id": "2049247695400018098"
+          }
+        ],
+        "public_metrics": {
+          "retweet_count": 0,
+          "reply_count": 1,
+          "like_count": 0,
+          "quote_count": 0,
+          "bookmark_count": 0,
+          "impression_count": 12
+        },
+        "entities": {
+          "mentions": [
+            {
+              "start": 0,
+              "end": 15,
+              "username": "maox2jinsiboho",
+              "id": "2017594720806158336"
+            }
+          ]
+        },
+        "id": "2049285321549095377",
+        "reply_settings": "everyone",
+        "text": "@maox2jinsiboho 아\n시아버지",
+        "lang": "ko",
+        "possibly_sensitive": false,
+        "author_id": "2042592848348954624"
+      },
+      {
+        "entities": {
+          "urls": [
+            {
+              "start": 36,
+              "end": 59,
+              "url": "https://t.co/42WgoVZCvo",
+              "expanded_url": "https://x.com/gurmi0526/status/2048673071259910475/photo/1",
+              "display_url": "pic.x.com/42WgoVZCvo",
+              "media_key": "3_2048673048212213760"
+            }
+          ]
+        },
+        "conversation_id": "2048673071259910475",
+        "edit_history_tweet_ids": [
+          "2048673071259910475"
+        ],
+        "created_at": "2026-04-27T07:58:17.000Z",
+        "attachments": {
+          "media_keys": [
+            "3_2048673048212213760"
+          ]
+        },
+        "public_metrics": {
+          "retweet_count": 16,
+          "reply_count": 140,
+          "like_count": 282,
+          "quote_count": 18,
+          "bookmark_count": 24,
+          "impression_count": 131612
+        },
+        "id": "2048673071259910475",
+        "reply_settings": "everyone",
+        "text": "마트에서 계산할 때,\n가운데 분리하는 긴 막대기 이름은 뭔가요? https://t.co/42WgoVZCvo",
+        "context_annotations": [
+          {
+            "domain": {
+              "id": "46",
+              "name": "Business Taxonomy",
+              "description": "Categories within Brand Verticals that narrow down the scope of Brands"
+            },
+            "entity": {
+              "id": "1557696888568045569",
+              "name": "Food & Beverage Business",
+              "description": "Brands, companies, advertisers and every non-person handle with the profit intent and related to foods & beverages such as snacks, soft drinks, beers."
+            }
+          }
+        ],
+        "lang": "ko",
+        "possibly_sensitive": false,
+        "author_id": "1823646781412106240"
+      },
+      {
+        "conversation_id": "2049194551026586081",
+        "edit_history_tweet_ids": [
+          "2049194551026586081"
+        ],
+        "created_at": "2026-04-28T18:30:27.000Z",
+        "public_metrics": {
+          "retweet_count": 0,
+          "reply_count": 1,
+          "like_count": 0,
+          "quote_count": 0,
+          "bookmark_count": 0,
+          "impression_count": 26
+        },
+        "id": "2049194551026586081",
+        "reply_settings": "everyone",
+        "text": "그… no4ㄱ 나갔을때 규에게 부란, 부에게 규란\n각자 얘기했던 얘기들이 진실로 규부코어였던거\n갑자기알고리즘떠서봤다가 혼자 감동받음\n그래,,,그래서좋앗어",
+        "lang": "ko",
+        "possibly_sensitive": false,
+        "author_id": "2046630560416899078"
+      },
+      {
+        "entities": {
+          "urls": [
+            {
+              "start": 12,
+              "end": 35,
+              "url": "https://t.co/vhPZog4CZ1",
+              "expanded_url": "https://twitter.com/milue0300124/status/2049079005794742626",
+              "display_url": "x.com/milue0300124/s…"
+            }
+          ]
+        },
+        "conversation_id": "2049110632004522018",
+        "edit_history_tweet_ids": [
+          "2049110632004522018"
+        ],
+        "created_at": "2026-04-28T12:56:59.000Z",
+        "referenced_tweets": [
+          {
+            "type": "quoted",
+            "id": "2049079005794742626"
+          }
+        ],
+        "public_metrics": {
+          "retweet_count": 0,
+          "reply_count": 1,
+          "like_count": 1,
+          "quote_count": 0,
+          "bookmark_count": 0,
+          "impression_count": 168
+        },
+        "id": "2049110632004522018",
+        "reply_settings": "everyone",
+        "text": "이거 어디서봐요??? https://t.co/vhPZog4CZ1",
+        "lang": "ko",
+        "possibly_sensitive": false,
+        "author_id": "1872939204369629192"
+      }
+    ]
+  },
+  "meta": {
+    "newest_id": "2049386875933307324",
+    "oldest_id": "2049111505443193024",
+    "result_count": 10,
+    "next_token": "b26v89c19zqg8o3juekkce01r26f7baqcwwbvsberzwql"
+  }
+}
