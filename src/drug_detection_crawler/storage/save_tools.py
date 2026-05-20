@@ -231,19 +231,15 @@ def append_text_csv_row(csv_path: str, row: dict) -> None:
 
 
 def append_success_original_item(
-    source_json_path: str,
     item: dict,
     csv_num: int,
     duplicate_keys: set[str],
-) -> None:
-    existing_items = read_json_list_file(source_json_path)
-    saved_item = {
+) -> dict:
+    return {
         "csv_num": csv_num,
         "duplicate_keys": sorted(duplicate_keys),
         "source_item": item,
     }
-    existing_items.append(saved_item)
-    write_json_file(existing_items, source_json_path)
 
 def get_last_num(rows: list[dict]) -> int:
     nums = []
@@ -431,6 +427,24 @@ def get_existing_key_set(rows: list[dict]) -> set[str]:
     return result
 
 
+def get_duplicate_key_to_csv_num(rows: list[dict]) -> dict[str, int]:
+    result = {}
+
+    for row in rows:
+        if not normalize_duplicate_value(row.get("tweet_url")):
+            continue
+
+        try:
+            csv_num = int(row.get("num", 0))
+        except (TypeError, ValueError):
+            continue
+
+        for key in build_csv_duplicate_keys(row):
+            result.setdefault(key, csv_num)
+
+    return result
+
+
 def get_next_num(rows: list[dict]) -> int:
     nums = []
     for row in rows:
@@ -545,12 +559,21 @@ def save_json_to_text_csv(file_path, saved_file_name, source_saved_file=None):
     ensure_text_csv_schema(saved_file_name)
     existing_rows = read_existing_csv_rows(saved_file_name)
     existing_keys = get_existing_key_set(existing_rows)
+    duplicate_key_to_csv_num = get_duplicate_key_to_csv_num(existing_rows)
     next_num = get_next_num(existing_rows)
 
     added_count = 0
     skipped_count = 0
     korean_skipped_count = 0
     no_key_count = 0
+    original_items = read_json_list_file(source_saved_file) if source_saved_file else []
+    original_csv_nums = {
+        int(item.get("csv_num", 0))
+        for item in original_items
+        if str(item.get("csv_num", "")).isdigit()
+    }
+    original_added_count = 0
+    original_backfill_count = 0
 
     for item in json_data:
         normalized = normalize_json_item(item)
@@ -562,6 +585,25 @@ def save_json_to_text_csv(file_path, saved_file_name, source_saved_file=None):
         current_keys = build_csv_duplicate_keys(normalized)
 
         if current_keys and current_keys.intersection(existing_keys):
+            if source_saved_file:
+                matched_csv_nums = {
+                    duplicate_key_to_csv_num[key]
+                    for key in current_keys
+                    if key in duplicate_key_to_csv_num
+                }
+                missing_csv_nums = sorted(matched_csv_nums - original_csv_nums)
+
+                if missing_csv_nums:
+                    csv_num = missing_csv_nums[0]
+                    original_items.append(append_success_original_item(
+                        item=item,
+                        csv_num=csv_num,
+                        duplicate_keys=current_keys,
+                    ))
+                    original_csv_nums.add(csv_num)
+                    original_added_count += 1
+                    original_backfill_count += 1
+
             skipped_count += 1
             continue
 
@@ -572,16 +614,20 @@ def save_json_to_text_csv(file_path, saved_file_name, source_saved_file=None):
         append_text_csv_row(saved_file_name, normalized)
 
         if source_saved_file:
-            append_success_original_item(
-                source_json_path=source_saved_file,
+            original_items.append(append_success_original_item(
                 item=item,
                 csv_num=next_num,
                 duplicate_keys=current_keys,
-            )
+            ))
+            original_csv_nums.add(next_num)
+            original_added_count += 1
 
         existing_keys.update(current_keys)
         next_num += 1
         added_count += 1
+
+    if source_saved_file and original_added_count:
+        write_json_file(original_items, source_saved_file)
 
     delete_file(file_path)
 
@@ -590,4 +636,6 @@ def save_json_to_text_csv(file_path, saved_file_name, source_saved_file=None):
     print(f"중복으로 스킵된 데이터: {skipped_count}개")
     print(f"한국어 미포함 스킵: {korean_skipped_count}개")
     print(f"중복 키 없이 추가된 데이터: {no_key_count}개")
+    print(f"원본 저장: {original_added_count}개")
+    print(f"누락 원본 복구: {original_backfill_count}개")
     print("입력 JSON 중간 파일 삭제 완료")
