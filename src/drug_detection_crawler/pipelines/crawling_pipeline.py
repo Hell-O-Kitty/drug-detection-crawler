@@ -5,9 +5,11 @@ from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 from drug_detection_crawler.crawlers.chrome_debug_launcher import run_chrome_debug
-from drug_detection_crawler.config.settings import DEBUG_PORT, HTML_TAG, SOURCE_NAME, RAW_JSON_PATH, PARSED_JSON_PATH
+from drug_detection_crawler.config.settings import DEBUG_PORT, HTML_TAG, SOURCE_NAME, RAW_JSON_PATH
 from drug_detection_crawler.storage.save_json import load_json, save_json
 
 
@@ -18,6 +20,50 @@ def connect_driver():
         f"127.0.0.1:{DEBUG_PORT}"
     )
     return webdriver.Chrome(options=options)
+
+
+def select_target_window(driver):
+    fallback_handle = driver.current_window_handle
+
+    for handle in driver.window_handles:
+        driver.switch_to.window(handle)
+        current_url = driver.current_url
+
+        if "x.com" in current_url or "twitter.com" in current_url:
+            return
+
+        if not current_url.startswith(("chrome://", "devtools://")):
+            fallback_handle = handle
+
+    driver.switch_to.window(fallback_handle)
+
+
+def wait_for_article_elements(driver, timeout=30):
+    selectors = [
+        'article[data-testid="tweet"]',
+        HTML_TAG,
+    ]
+
+    last_error = None
+
+    for selector in selectors:
+        try:
+            elements = WebDriverWait(driver, timeout).until(
+                EC.presence_of_all_elements_located((By.CSS_SELECTOR, selector))
+            )
+            if elements:
+                return selector, elements
+        except Exception as e:
+            last_error = e
+
+    print("[ERROR] article 요소를 찾지 못했습니다.")
+    print(f"[INFO] 현재 URL: {driver.current_url}")
+    print(f"[INFO] 현재 title: {driver.title}")
+    print("[INFO] 디버그 모드로 열린 Chrome 창에서 X/Twitter 페이지가 실제로 열려 있는지 확인해주세요.")
+    if last_error:
+        print(f"[DEBUG] 마지막 대기 오류: {last_error}")
+
+    return None, []
 
 
 def build_item_key(raw_html: str) -> str:
@@ -31,10 +77,14 @@ def collect_elements_to_json(driver, pause_time=2, max_scroll=30, stop_when_no_n
     results = existing_results[:]
     seen_keys = {item["item_key"] for item in existing_results if "item_key" in item}
 
+    active_selector, initial_elements = wait_for_article_elements(driver)
+    if not initial_elements:
+        return results
+
     no_new_count = 0
 
     for scroll_idx in range(max_scroll):
-        elements = driver.find_elements(By.CSS_SELECTOR, HTML_TAG)
+        elements = initial_elements if scroll_idx == 0 else driver.find_elements(By.CSS_SELECTOR, active_selector)
         added = 0
 
         for el in elements:
@@ -96,6 +146,7 @@ def main():
         print()
         print("[INFO] Selenium이 디버그 크롬에 연결합니다.")
         driver = connect_driver()
+        select_target_window(driver)
 
         print("[INFO] 현재 페이지 URL")
         print(driver.current_url)

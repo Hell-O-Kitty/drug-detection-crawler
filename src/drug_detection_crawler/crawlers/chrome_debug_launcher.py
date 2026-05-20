@@ -2,15 +2,18 @@ import subprocess
 from drug_detection_crawler.config.settings import CHROME_PATH, USER_DATA_DIR, DEBUG_PORT
 
 def run_chrome_debug():
-    USER_DATA_DIR.mkdir(exist_ok=True)
-
-    cmd = [
-        CHROME_PATH,
-        f"--remote-debugging-port={DEBUG_PORT}",
-        f"--user-data-dir={USER_DATA_DIR}"
-    ]
-
     try:
+        if CHROME_PATH is None:
+            raise FileNotFoundError("Chrome 실행 파일을 찾을 수 없습니다.")
+
+        USER_DATA_DIR.mkdir(exist_ok=True)
+
+        cmd = [
+            CHROME_PATH,
+            f"--remote-debugging-port={DEBUG_PORT}",
+            f"--user-data-dir={USER_DATA_DIR}"
+        ]
+
         process = subprocess.Popen(cmd)
         print("[INFO] 크롬 실행 성공.")
         print(f"[INFO] PID: {process.pid}")
