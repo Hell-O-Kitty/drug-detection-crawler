@@ -2,11 +2,16 @@ from pathlib import Path
 import json
 import csv
 
-from drug_detection_crawler.storage.save_tools import save_json_to_csv
-from drug_detection_crawler.config.settings import RAW_JSON_DIR
+from drug_detection_crawler.storage.save_tools import save_json_to_text_csv
+from drug_detection_crawler.config.settings import (
+    PARSED_JSON_PATH,
+    TEXT_CSV_ORIGINALS_PATH,
+    TEXT_CSV_PATH,
+)
 
-INPUT_JSON_PATH = RAW_JSON_DIR / "tweet_datas.json"
-OUTPUT_CSV_PATH = RAW_JSON_DIR / "tweets.csv"
+INPUT_JSON_PATH = PARSED_JSON_PATH
+OUTPUT_CSV_PATH = TEXT_CSV_PATH
+SUCCESS_ORIGINAL_JSON_PATH = TEXT_CSV_ORIGINALS_PATH
 
 
 def load_json_preview(file_path: Path, preview_count: int = 2):
@@ -32,9 +37,10 @@ def main():
     load_json_preview(INPUT_JSON_PATH)
 
     print("\n[STEP 2] JSON → CSV 저장 실행")
-    save_json_to_csv(
+    save_json_to_text_csv(
         file_path=str(INPUT_JSON_PATH),
         saved_file_name=str(OUTPUT_CSV_PATH),
+        source_saved_file=str(SUCCESS_ORIGINAL_JSON_PATH),
     )
 
     print("\n[DONE] CSV 테스트 파이프라인 완료")

@@ -1,5 +1,7 @@
 from bs4 import BeautifulSoup
 
+TWEET_URL_BASE = "https://x.com"
+
 
 def extract_num(label: str) -> int:
     num = ""
@@ -23,6 +25,21 @@ def make_item_key(parsed: dict) -> str:
     return f"{date}|{user_id}"
 
 
+def normalize_tweet_url(href: str) -> str | None:
+    if not href or "/status/" not in href:
+        return None
+
+    clean_href = href.split("?", 1)[0]
+
+    if clean_href.startswith("http://") or clean_href.startswith("https://"):
+        return clean_href
+
+    if clean_href.startswith("/"):
+        return f"{TWEET_URL_BASE}{clean_href}"
+
+    return None
+
+
 def parse_tweet_html(raw_html: str) -> dict:
     soup = BeautifulSoup(raw_html, "html.parser")
 
@@ -35,6 +52,7 @@ def parse_tweet_html(raw_html: str) -> dict:
         "user_id": None,
         "profile_image_url": None,
         "date": None,
+        "tweet_url": None,
         "text": None,
         "counts": {
             "reply": 0,
@@ -68,6 +86,10 @@ def parse_tweet_html(raw_html: str) -> dict:
     time_elem = article.select_one("time")
     if time_elem and time_elem.get("datetime"):
         result["date"] = time_elem["datetime"]
+
+    status_link = article.select_one('a[href*="/status/"]')
+    if status_link:
+        result["tweet_url"] = normalize_tweet_url(status_link.get("href", ""))
 
     text_elem = article.select_one('[data-testid="tweetText"]')
     if text_elem:

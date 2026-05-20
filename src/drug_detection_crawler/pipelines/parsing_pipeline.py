@@ -3,7 +3,7 @@ from pathlib import Path
 
 from drug_detection_crawler.parsers.tweet_parser import parse_collected_item
 from drug_detection_crawler.config.settings import RAW_JSON_PATH, PARSED_JSON_PATH
-from drug_detection_crawler.storage.save_json import load_json, save_json
+from drug_detection_crawler.storage.save_json import delete_json, load_json, save_json
 
 RAW_FILE_PATH = RAW_JSON_PATH
 OUTPUT_FILE_PATH = PARSED_JSON_PATH
@@ -56,8 +56,6 @@ def run_parse_and_cleanup():
     }
 
     new_processed = processed_data[:]
-    remaining_raw = []
-
     new_count = 0
     skip_count = 0
     fail_count = 0
@@ -69,19 +67,16 @@ def run_parse_and_cleanup():
         if not item_key:
             parsed_item = parse_collected_item(item)
             if not parsed_item:
-                remaining_raw.append(item)
                 fail_count += 1
                 continue
 
             item_key = normalize_key(parsed_item.get("item_key"))
             if not item_key:
-                remaining_raw.append(item)
                 fail_count += 1
                 continue
         else:
             parsed_item = parse_collected_item(item)
             if not parsed_item:
-                remaining_raw.append(item)
                 fail_count += 1
                 continue
 
@@ -97,15 +92,15 @@ def run_parse_and_cleanup():
         new_count += 1
 
     save_json(new_processed, OUTPUT_FILE_PATH)
-    save_json(remaining_raw, RAW_FILE_PATH)
+    delete_json(RAW_FILE_PATH)
 
     print("[DONE]")
     print(f" - raw item_key 재구성: {rebuilt_count}")
     print(f" - 기존 OUTPUT: {len(processed_data)}")
     print(f" - 추가: {new_count}")
     print(f" - 중복 스킵: {skip_count}")
-    print(f" - 파싱 실패: {fail_count}")
-    print(f" - 남은 raw: {len(remaining_raw)}")
+    print(f" - 파싱 실패 삭제: {fail_count}")
+    print(" - raw 중간 파일 삭제 완료")
     print(f" - 최종 OUTPUT: {len(new_processed)}")
 
 

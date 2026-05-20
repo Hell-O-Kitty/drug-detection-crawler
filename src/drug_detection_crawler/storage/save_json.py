@@ -23,3 +23,8 @@ def save_json(data, file_path: Path):
         )
 
     tmp_path.replace(file_path)
+
+
+def delete_json(file_path: Path):
+    if file_path.exists():
+        file_path.unlink()

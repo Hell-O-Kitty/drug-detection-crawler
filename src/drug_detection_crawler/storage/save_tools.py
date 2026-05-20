@@ -8,11 +8,13 @@ from pathlib import Path
 from urllib.parse import urlparse
 import re
 
+from drug_detection_crawler.config.settings import DOWNLOADED_IMAGE_DIR
+from drug_detection_crawler.parsers.tweet_parser import parse_tweet_html
+
 CSV_FIELDS = [
     "num",
     "nickname",
     "user_id",
-    "profile_image_url",
     "date",
     "text",
     "counts_reply",
@@ -24,7 +26,10 @@ CSV_FIELDS = [
     "video_video_blob_url",
     "video_video_poster_url",
     "video_video_source_url",
+    "tweet_url",
 ]
+
+TEXT_CSV_FIELDS = CSV_FIELDS[:]
 
 
 # -----------------------------
@@ -88,6 +93,36 @@ def read_json_file(file_path: str):
         return json.load(f)
 
 
+def read_json_list_file(file_path: str) -> list:
+    if not os.path.exists(file_path):
+        return []
+
+    with open(file_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    if not isinstance(data, list):
+        raise ValueError("JSON 파일은 리스트 형태여야 합니다.")
+
+    return data
+
+
+def write_json_file(data, file_path: str) -> None:
+    path = Path(file_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp_path = path.with_name(f"{path.name}.tmp")
+
+    with open(tmp_path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=1, separators=(",", ": "))
+
+    tmp_path.replace(path)
+
+
+def delete_file(file_path: str) -> None:
+    path = Path(file_path)
+    if path.exists():
+        path.unlink()
+
+
 def read_existing_csv_rows(csv_path: str):
     if not os.path.exists(csv_path):
         return []
@@ -95,6 +130,45 @@ def read_existing_csv_rows(csv_path: str):
     with open(csv_path, "r", encoding="utf-8-sig", newline="") as f:
         reader = csv.DictReader(f)
         return list(reader)
+
+
+def insert_csv_column(csv_path: str, column_name: str, after_column_name: str) -> None:
+    path = Path(csv_path)
+    if not path.exists() or path.stat().st_size == 0:
+        return
+
+    with open(path, "r", encoding="utf-8-sig", newline="") as f:
+        rows = list(csv.reader(f))
+
+    if not rows:
+        return
+
+    header = rows[0]
+    if column_name in header or after_column_name not in header:
+        return
+
+    insert_index = header.index(after_column_name) + 1
+    header.insert(insert_index, column_name)
+
+    for row in rows[1:]:
+        while len(row) < len(header) - 1:
+            row.append("")
+        row.insert(insert_index, "")
+
+    tmp_path = path.with_name(f"{path.name}.tmp")
+    with open(tmp_path, "w", encoding="utf-8-sig", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerows(rows)
+
+    tmp_path.replace(path)
+
+
+def ensure_text_csv_schema(csv_path: str) -> None:
+    insert_csv_column(
+        csv_path=csv_path,
+        column_name="tweet_url",
+        after_column_name="video_video_source_url",
+    )
 
 
 def write_csv_rows(csv_path: str, rows: list[dict]) -> None:
@@ -114,6 +188,62 @@ def append_csv_row(csv_path: str, row: dict) -> None:
             writer.writeheader()
 
         writer.writerow(row)
+
+
+def get_csv_fieldnames(csv_path: str, default_fields: list[str]) -> list[str]:
+    if not os.path.exists(csv_path) or os.path.getsize(csv_path) == 0:
+        return default_fields
+
+    with open(csv_path, "r", encoding="utf-8-sig", newline="") as f:
+        reader = csv.reader(f)
+        try:
+            header = next(reader)
+        except StopIteration:
+            return default_fields
+
+    if "video_video_source_url" not in header:
+        return default_fields
+
+    if all(field in header for field in default_fields):
+        return header
+
+    text_field_count = len(default_fields)
+    required_prefix = header[:text_field_count]
+
+    if required_prefix == default_fields:
+        return header
+
+    return default_fields
+
+
+def append_text_csv_row(csv_path: str, row: dict) -> None:
+    fieldnames = get_csv_fieldnames(csv_path, TEXT_CSV_FIELDS)
+    file_exists = os.path.exists(csv_path)
+    normalized_row = {field: row.get(field, "") for field in fieldnames}
+
+    with open(csv_path, "a", encoding="utf-8-sig", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+
+        if not file_exists or os.path.getsize(csv_path) == 0:
+            writer.writeheader()
+
+        writer.writerow(normalized_row)
+
+
+def append_success_original_item(
+    source_json_path: str,
+    item: dict,
+    csv_num: int,
+    duplicate_keys: set[str],
+) -> None:
+    existing_items = read_json_list_file(source_json_path)
+    saved_item = {
+        "csv_num": csv_num,
+        "duplicate_keys": sorted(duplicate_keys),
+        "source_item": item,
+    }
+    existing_items.append(saved_item)
+    write_json_file(existing_items, source_json_path)
 
 def get_last_num(rows: list[dict]) -> int:
     nums = []
@@ -182,7 +312,7 @@ def file_to_base64(file_path: str) -> str | None:
         return None
 
 
-def download_url_image_and_exchange_base64(num, url, field_name, save_dir="downloaded_images"):
+def download_url_image_and_exchange_base64(num, url, field_name, save_dir=DOWNLOADED_IMAGE_DIR):
     """
     1. url 파일을 로컬에 저장
     2. 저장된 파일을 base64 문자열로 변환
@@ -216,6 +346,19 @@ def normalize_to_string(value):
     return str(value)
 
 
+def get_tweet_url_from_item(item: dict, parsed: dict) -> str:
+    tweet_url = parsed.get("tweet_url")
+    if tweet_url:
+        return normalize_to_string(tweet_url)
+
+    raw_html = item.get("raw_html")
+    if not raw_html:
+        return ""
+
+    parsed_from_html = parse_tweet_html(raw_html)
+    return normalize_to_string(parsed_from_html.get("tweet_url"))
+
+
 def normalize_json_item(item: dict) -> dict:
     """
     json 데이터를 csv 한 줄 구조로 맞춤
@@ -241,8 +384,13 @@ def normalize_json_item(item: dict) -> dict:
         "video_video_blob_url": normalize_to_string(video.get("video_blob_url")),
         "video_video_poster_url": normalize_to_string(video.get("video_poster_url")),
         "video_video_source_url": normalize_to_string(video.get("video_source_url")),
+        "tweet_url": get_tweet_url_from_item(item, parsed),
     }
     return normalized
+
+
+def normalize_duplicate_value(value) -> str:
+    return " ".join(str(value or "").strip().lower().split())
 
 
 def build_csv_duplicate_key(row: dict) -> str:
@@ -255,13 +403,30 @@ def build_csv_duplicate_key(row: dict) -> str:
     return f"{date}|{user_id}"
 
 
+def build_csv_duplicate_keys(row: dict) -> set[str]:
+    keys = set()
+
+    date = normalize_duplicate_value(row.get("date"))
+    user_id = normalize_duplicate_value(row.get("user_id"))
+    text = normalize_duplicate_value(row.get("text"))
+
+    if date and user_id:
+        keys.add(f"date_user:{date}|{user_id}")
+
+    if user_id and text:
+        keys.add(f"user_text:{user_id}|{text}")
+
+    if date and text:
+        keys.add(f"date_text:{date}|{text}")
+
+    return keys
+
+
 def get_existing_key_set(rows: list[dict]) -> set[str]:
     result = set()
 
     for row in rows:
-        key = build_csv_duplicate_key(row)
-        if key:
-            result.add(key)
+        result.update(build_csv_duplicate_keys(row))
 
     return result
 
@@ -276,7 +441,7 @@ def get_next_num(rows: list[dict]) -> int:
     return max(nums, default=0) + 1
 
 
-def convert_url_fields_to_base64(row_num: int, row_data: dict, image_save_dir="downloaded_images") -> dict:
+def convert_url_fields_to_base64(row_num: int, row_data: dict, image_save_dir=DOWNLOADED_IMAGE_DIR) -> dict:
     """
     image_urls, video_video_poster_url 만 다운로드 후 base64 변환
     profile_image_url 은 제외
@@ -343,11 +508,11 @@ def save_json_to_csv(file_path, saved_file_name):
             continue
 
 
-        current_key = build_csv_duplicate_key(normalized)
+        current_keys = build_csv_duplicate_keys(normalized)
 
-        if current_key and current_key in existing_keys:
+        if current_keys and current_keys.intersection(existing_keys):
             skipped_count += 1
-            print(f"[중복 스킵] key={current_key}")
+            print(f"[중복 스킵] key={sorted(current_keys)[0]}")
             continue
 
         normalized["num"] = str(next_num)
@@ -355,18 +520,74 @@ def save_json_to_csv(file_path, saved_file_name):
         converted_row = convert_url_fields_to_base64(
             row_num=next_num,
             row_data=normalized,
-            image_save_dir="downloaded_images",
+            image_save_dir=DOWNLOADED_IMAGE_DIR,
         )
 
         append_csv_row(saved_file_name, converted_row)
 
-        if current_key:
-            existing_keys.add(current_key)
+        existing_keys.update(current_keys)
 
-        print(f"[추가 완료] num={next_num}, key={current_key}")
+        print(f"[추가 완료] num={next_num}")
         next_num += 1
         added_count += 1
 
     print(f"추가된 데이터: {added_count}개")
     print(f"중복으로 스킵된 데이터: {skipped_count}개")
     print(f"한국어 미포함 스킵: {korean_skipped_count}개")
+
+
+def save_json_to_text_csv(file_path, saved_file_name, source_saved_file=None):
+    json_data = read_json_file(file_path)
+
+    if not isinstance(json_data, list):
+        raise ValueError("JSON 파일은 리스트 형태여야 합니다.")
+
+    ensure_text_csv_schema(saved_file_name)
+    existing_rows = read_existing_csv_rows(saved_file_name)
+    existing_keys = get_existing_key_set(existing_rows)
+    next_num = get_next_num(existing_rows)
+
+    added_count = 0
+    skipped_count = 0
+    korean_skipped_count = 0
+    no_key_count = 0
+
+    for item in json_data:
+        normalized = normalize_json_item(item)
+
+        if not contains_korean(normalized.get("text", "")):
+            korean_skipped_count += 1
+            continue
+
+        current_keys = build_csv_duplicate_keys(normalized)
+
+        if current_keys and current_keys.intersection(existing_keys):
+            skipped_count += 1
+            continue
+
+        if not current_keys:
+            no_key_count += 1
+
+        normalized["num"] = str(next_num)
+        append_text_csv_row(saved_file_name, normalized)
+
+        if source_saved_file:
+            append_success_original_item(
+                source_json_path=source_saved_file,
+                item=item,
+                csv_num=next_num,
+                duplicate_keys=current_keys,
+            )
+
+        existing_keys.update(current_keys)
+        next_num += 1
+        added_count += 1
+
+    delete_file(file_path)
+
+    print("[DONE]")
+    print(f"추가된 데이터: {added_count}개")
+    print(f"중복으로 스킵된 데이터: {skipped_count}개")
+    print(f"한국어 미포함 스킵: {korean_skipped_count}개")
+    print(f"중복 키 없이 추가된 데이터: {no_key_count}개")
+    print("입력 JSON 중간 파일 삭제 완료")
