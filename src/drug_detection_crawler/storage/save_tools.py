@@ -9,6 +9,11 @@ from urllib.parse import urlparse
 import re
 
 from drug_detection_crawler.config.settings import DOWNLOADED_IMAGE_DIR
+from drug_detection_crawler.config.settings import (
+    MEDIA_DOWNLOAD_COLUMNS,
+    MEDIA_DOWNLOAD_DIR,
+    MEDIA_DOWNLOAD_ON_SAVE,
+)
 from drug_detection_crawler.parsers.tweet_parser import parse_tweet_html
 
 CSV_FIELDS = [
@@ -293,6 +298,89 @@ def download_file(url: str, save_path: str, timeout: int = 15) -> str | None:
     except Exception as e:
         print(f"[다운로드 실패] {url} -> {e}")
         return None
+
+
+def get_extension_from_bytes(data: bytes) -> str:
+    if data.startswith(b"\xff\xd8\xff"):
+        return ".jpg"
+    if data.startswith(b"\x89PNG\r\n\x1a\n"):
+        return ".png"
+    if data.startswith(b"GIF87a") or data.startswith(b"GIF89a"):
+        return ".gif"
+    if data.startswith(b"RIFF") and data[8:12] == b"WEBP":
+        return ".webp"
+    return ".jpg"
+
+
+def save_base64_image(value: str, save_path: str) -> str | None:
+    try:
+        base64_value = value.strip()
+
+        if base64_value.startswith("data:image") and "," in base64_value:
+            base64_value = base64_value.split(",", 1)[1]
+
+        base64_value = "".join(base64_value.split())
+        padding = len(base64_value) % 4
+        if padding:
+            base64_value += "=" * (4 - padding)
+
+        image_bytes = base64.b64decode(base64_value, validate=True)
+        final_path = str(Path(save_path).with_suffix(get_extension_from_bytes(image_bytes)))
+
+        with open(final_path, "wb") as f:
+            f.write(image_bytes)
+
+        return final_path
+    except Exception as e:
+        print(f"[base64 이미지 저장 실패] {save_path} -> {e}")
+        return None
+
+
+def save_media_value(value: str, save_path: str) -> str | None:
+    if value.startswith(("http://", "https://")):
+        return download_file(value, save_path)
+
+    if value.startswith(("blob:",)):
+        return None
+
+    return save_base64_image(value, save_path)
+
+
+def download_media_files_for_row(
+    row_num: int,
+    row_data: dict,
+    save_dir=MEDIA_DOWNLOAD_DIR,
+    columns=MEDIA_DOWNLOAD_COLUMNS,
+) -> tuple[int, list[str]]:
+    ensure_dir(save_dir)
+
+    saved_count = 0
+    failed_columns = []
+
+    for column_name in columns:
+        raw_value = str(row_data.get(column_name, "") or "").strip()
+        if not raw_value:
+            continue
+
+        values = [value.strip() for value in raw_value.split("|") if value.strip()]
+
+        for idx, value in enumerate(values, start=1):
+            file_name = (
+                f"{row_num}_{column_name}"
+                if len(values) == 1
+                else f"{row_num}_{column_name}_{idx}"
+            )
+            saved_path = save_media_value(
+                value=value,
+                save_path=str(Path(save_dir) / file_name),
+            )
+
+            if saved_path:
+                saved_count += 1
+            else:
+                failed_columns.append(f"{column_name}_{idx}")
+
+    return saved_count, failed_columns
 
 
 def file_to_base64(file_path: str) -> str | None:
@@ -612,6 +700,18 @@ def save_json_to_text_csv(file_path, saved_file_name, source_saved_file=None):
 
         normalized["num"] = str(next_num)
         append_text_csv_row(saved_file_name, normalized)
+
+        if MEDIA_DOWNLOAD_ON_SAVE:
+            saved_media_count, failed_media_columns = download_media_files_for_row(
+                row_num=next_num,
+                row_data=normalized,
+                save_dir=MEDIA_DOWNLOAD_DIR,
+            )
+            if saved_media_count or failed_media_columns:
+                print(
+                    f"[이미지 저장] num={next_num}, "
+                    f"saved={saved_media_count}, failed={len(failed_media_columns)}"
+                )
 
         if source_saved_file:
             original_items.append(append_success_original_item(
